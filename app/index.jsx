@@ -1,5 +1,8 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 import MyIMG from "../assets/favicon.png";
+import AboutPage from "./about.jsx";
+import { Link } from "expo-router";
+
 const Home = () => {
   return (
     <View style={styles.container}>
@@ -17,9 +20,9 @@ const Home = () => {
         This is a simple mobile app
       </Text>
 
-      <View style={styles.card}>
+      <Link style={styles.card} href="./about">
         <Text>Hello, this is a card</Text>
-      </View>
+      </Link>
     </View>
   );
 };
