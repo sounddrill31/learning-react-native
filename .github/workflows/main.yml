@@ -34,7 +34,7 @@ jobs:
       - name: 🤖 Build Android APK
         run: |
           eas build --platform android --local
-          find .  -name "apk" # debug, since we don't know output path yet
+          mv <(ls *.apk | head -n 1) app-release.apk
 
       - name: 🌐 Export Web
         run: |
@@ -46,7 +46,7 @@ jobs:
         with:
           name: release-assets
           path: |
-            app/build/outputs/apk/release/app-release.apk
+            app-release.apk
             web-build/
 
   deploy:
