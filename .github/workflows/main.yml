@@ -1,0 +1,78 @@
+name: Expo Build & Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛒 Checkout code
+        uses: actions/checkout@v4
+
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: 🐇 Install Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: ⚛️ Install Expo CLI
+        run: bun add expo-cli@latest
+
+      - name: 📦 Install dependencies
+        run: bun install
+
+      - name: 🤖 Build Android APK
+        run: |
+          eas build --platform android --local
+          find .  -name "apk" # debug, since we don't know output path yet
+
+      - name: 🌐 Export Web
+        run: |
+          bun expo export -p web
+          mv dist web-build
+
+      - name: 📦 Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-assets
+          path: |
+            app/build/outputs/apk/release/app-release.apk
+            web-build/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      contents: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: ⬇️ Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: release-assets
+
+      - name: 🚀 Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/master'
+        uses: actions/deploy-pages@v4
+        id: deployment
+
+      - name: 🏷️ Release APK
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: app-release.apk
+          tag_name: ${{ github.ref_name }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
