@@ -22,8 +22,11 @@ jobs:
         with:
           bun-version: latest
 
-      - name: ⚛️ Install Expo CLI
-        run: bun add expo-cli@latest
+      - name: ⚛️ Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
 
       - name: 📦 Install dependencies
         run: bun install
