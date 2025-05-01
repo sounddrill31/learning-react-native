@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, Image } from "react-native";
 const About = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>About age</Text>
+      <Text style={styles.title}>About Page</Text>
     </View>
   );
 };

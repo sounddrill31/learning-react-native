@@ -21,7 +21,7 @@ const Home = () => {
       </Text>
 
       <Link style={styles.card} href="./about">
-        <Text>Hello, this is a card</Text>
+        <Text>About this App</Text>
       </Link>
     </View>
   );
