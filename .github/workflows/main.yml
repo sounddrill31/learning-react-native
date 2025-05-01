@@ -1,0 +1,78 @@
+name: Expo Build & Deploy
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛒 Checkout code
+        uses: actions/checkout@v4
+
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: 🐇 Install Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: ⚛️ Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: bun install
+
+      - name: 🤖 Build Android APK
+        run: |
+          eas build --platform android --local
+          mv build-*.apk app-release.apk
+
+      - name: 🌐 Export Web
+        run: |
+          bun expo export -p web
+
+      - name: 📦 Upload Artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: 🏷️ Release APK
+        uses: softprops/action-gh-release@v1
+        with:
+          files: app-release.apk
+          tag_name: ${{ github.ref_name }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      contents: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: ⬇️ Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+
+      - name: 🚀 Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/master'
+        uses: actions/deploy-pages@v4
+        id: deployment
