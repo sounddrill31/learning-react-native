@@ -42,9 +42,8 @@ jobs:
           mv dist web-build
 
       - name: 📦 Upload Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v1
         with:
-          name: github-pages
           path: |
             web-build/
 
