@@ -39,13 +39,11 @@ jobs:
       - name: 🌐 Export Web
         run: |
           bun expo export -p web
-          mv dist web-build
 
       - name: 📦 Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: |
-            web-build
+          path: dist
 
   deploy:
     needs: build
