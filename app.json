@@ -23,7 +23,8 @@
       "package": "com.souhrud.learningexpo"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "output": "static"
     },
     "plugins": [
       "expo-router"
