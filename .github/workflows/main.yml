@@ -63,7 +63,7 @@ jobs:
       - name: ⬇️ Download Artifacts
         uses: actions/download-artifact@v4
         with:
-          name: release-assets
+          name: github-pages
 
       - name: 🚀 Deploy to GitHub Pages
         if: github.ref == 'refs/heads/master'
