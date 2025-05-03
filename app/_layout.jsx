@@ -32,6 +32,7 @@ const RootLayout = () => {
           name="about"
           options={{
             title: "About App",
+            // tabBarBadge: 2, shows 2 unreads in About page
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="numeric-2-box-outline"
