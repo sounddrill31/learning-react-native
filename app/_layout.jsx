@@ -18,7 +18,7 @@ const RootLayout = () => {
         <Tabs.Screen
           name="index"
           options={{
-            title: "HomePage",
+            title: "Welcome to My App",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="numeric-1-box-outline"
