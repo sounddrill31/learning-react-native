@@ -1,17 +1,22 @@
 import { Tabs } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, useColorScheme } from "react-native";
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Colors } from "../constants/Colors";
 
 const RootLayout = () => {
+  const colorScheme = useColorScheme();
+  const theme = Colors[colorScheme] ?? Colors.light;
+
   return (
     <React.Fragment>
       <StatusBar style="auto" />
       <Tabs
         screenOptions={{
-          headerStyle: { backgroundColor: "#ddd" },
-          headerTintColor: "#333",
+          tabBarStyle: { backgroundColor: theme.navBackground },
+          headerStyle: { backgroundColor: theme.navBackground },
+          headerTintColor: theme.title,
           tabBarActiveTintColor: "teal",
         }}
       >

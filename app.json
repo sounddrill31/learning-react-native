@@ -2,11 +2,11 @@
   "expo": {
     "name": "learning-expo",
     "slug": "learning-expo",
-    "scheme": "souhrud-demo",
+    "scheme": "learning-expo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "auto",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",

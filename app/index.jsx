@@ -1,29 +1,27 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 import MyIMG from "../assets/favicon.png";
 import AboutPage from "./about.jsx";
-import { Link } from "expo-router";
+import ThemedView from "../components/ThemedView";
+import ThemedCard from "../components/ThemedCard";
+import ThemedText from "../components/ThemedText";
+import Spacer from "../components/Spacer.jsx";
 
 const Home = () => {
   return (
-    <View style={styles.container}>
+    <ThemedView style={[styles.container]}>
       <Image source={MyIMG} style={styles.img} />
 
-      <Text style={styles.title}>My App</Text>
-      <Text
-        style={{
-          marginTop: 10,
-          marginBottom: 10,
-          marginLeft: 10,
-          marginRight: 10,
-        }}
-      >
-        This is a simple mobile app
-      </Text>
+      <ThemedText style={styles.title} title={true}>
+        My App
+      </ThemedText>
+      <Spacer height={20} />
+      <ThemedText>This is a simple mobile app</ThemedText>
+      <Spacer height={10} />
 
-      <Link style={styles.card} href="./about">
-        <Text>About this App</Text>
-      </Link>
-    </View>
+      <ThemedCard href="./about">
+        <ThemedText>About this App</ThemedText>
+      </ThemedCard>
+    </ThemedView>
   );
 };
 
@@ -43,7 +41,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   card: {
-    backgroundColor: "eee",
     padding: 20,
     borderRadius: 5,
     boxShadow: "4px 4px rgba(0, 0, 0, 0.1)",
