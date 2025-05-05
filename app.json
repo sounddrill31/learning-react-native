@@ -31,6 +31,7 @@
       "eas": {
         "projectId": "15aeec7f-dbe6-4cef-b540-813a3a0f031a"
       }
-    }
+    },
+    "jsEngine": "hermes"
   }
 }
