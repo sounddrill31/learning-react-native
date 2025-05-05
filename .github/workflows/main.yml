@@ -31,6 +31,13 @@ jobs:
       - name: 📦 Install dependencies
         run: bun install
 
+      - name: 👨🏻‍⚕️ Run expo-doctor
+        run: npx expo-doctor
+        continue-on-error: true
+
+      - name: ⚙️ Run Prebuild
+        run: bun expo prebuild --bun
+
       - name: 🤖 Build Android APK
         run: |
           eas build --platform android --local
